@@ -59,10 +59,9 @@ pipeline {
 	stage('Remove Existing Container') {
 
       steps{
-	    PORT = 8000
-		containerId = sh "docker container ls --format="{{.ID}}\t{{.Ports}}" | grep ${PORT} | awk '{print $1}'"
-        sh "docker rm -f $(containerId)"
-
+	     containerPort = "8000"
+	sh "docker container ls --format="{{.ID}}\t{{.Ports}}" | grep ${containerPort} | awk '{print $1}' > containerIdFile"
+        sh "docker rm -f readFile('containerIdFile').trim()"
       }
 
     }
