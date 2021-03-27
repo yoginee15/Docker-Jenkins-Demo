@@ -58,7 +58,8 @@ pipeline {
 	stage('Remove Existing Containers') {
 
       steps{
-	      sh "docker rm -f ${sh "docker ps -aq"}"
+	      containerId = ${sh "docker ps -aq"}
+	      sh "docker rm -f containerId"
       }
 
     }
