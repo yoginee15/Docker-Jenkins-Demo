@@ -55,11 +55,12 @@ pipeline {
       }
 
     }
-	stage('Remove Existing Containers') {
+	stage('Remove Existing Container') {
 
       steps{
-	      containerId = ${sh "docker ps -aq"}
-	      sh "docker rm -f containerId"
+	  script {
+		sh "docker rm -f $(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')"
+		}
       }
 
     }
