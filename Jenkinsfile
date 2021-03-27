@@ -55,6 +55,17 @@ pipeline {
       }
 
     }
+	  
+	stage('Remove Existing Container') {
+
+      steps{
+	    PORT = 8000
+		containerId = sh "docker container ls --format="{{.ID}}\t{{.Ports}}" | grep ${PORT} | awk '{print $1}'"
+        sh "docker rm -f $(containerId)"
+
+      }
+
+    }
     
     	stage('Run Docker Image in Lab') {
 
@@ -64,6 +75,16 @@ pipeline {
 
 		        sh "docker run -d -p 8000:8000 ${dockerImage.imageName()}"
         }
+
+      }
+
+    }
+	  
+stage('Remove Unused docker image') {
+
+      steps{
+
+        sh "docker rmi $registry:$BUILD_NUMBER"
 
       }
 
