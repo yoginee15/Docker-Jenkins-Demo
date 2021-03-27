@@ -59,9 +59,20 @@ pipeline {
 
       steps{
 	  script {
-		sh '''
-		docker rm -f $(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')
-		'''
+			sh '''
+
+			a="$(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')"
+
+			echo $a
+
+			if [ -z "$a" ]
+			then
+			echo "do not delete"
+			else
+			sh "docker rm -f $(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')"
+			fi
+
+			'''
 		}
       }
 
