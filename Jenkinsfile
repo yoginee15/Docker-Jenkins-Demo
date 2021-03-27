@@ -58,7 +58,7 @@ pipeline {
 	stage('Remove Existing Containers') {
 
       steps{
-	      sh "docker rm -f /$(docker ps -aq)"
+	      sh "docker rm -f \$(docker ps -aq)"
       }
 
     }
