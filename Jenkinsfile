@@ -55,6 +55,13 @@ pipeline {
       }
 
     }
+	stage('Remove Existing Container') {
+
+      steps{
+		sh "docker rm -f $(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')"
+      }
+
+    }
     
     	stage('Run Docker Image in Lab') {
 
