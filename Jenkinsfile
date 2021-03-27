@@ -69,9 +69,7 @@ pipeline {
 			then
 			echo "do not delete"
 			else
-			sh '''
-		  	docker rm -f $(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}')
-		        '''
+			sh "docker rm -f $a"
 			fi
 
 			'''
