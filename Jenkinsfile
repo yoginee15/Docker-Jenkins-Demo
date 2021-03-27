@@ -69,7 +69,7 @@ pipeline {
 			then
 			echo "do not delete"
 			else
-			sh "docker rm -f $a"
+			docker rm -f $a
 			fi
 
 			'''
