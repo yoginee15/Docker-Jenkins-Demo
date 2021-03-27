@@ -55,16 +55,6 @@ pipeline {
       }
 
     }
-	  
-	stage('Remove Existing Container') {
-
-      steps{
-	     containerPort = "8000"
-	sh "docker container ls --format="{{.ID}}\t{{.Ports}}" | grep ${containerPort} | awk '{print $1}' > containerIdFile"
-        sh "docker rm -f readFile('containerIdFile').trim()"
-      }
-
-    }
     
     	stage('Run Docker Image in Lab') {
 
