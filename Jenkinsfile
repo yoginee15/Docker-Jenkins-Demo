@@ -7,6 +7,8 @@ pipeline {
     registryCredential = 'docker-creds'
 
     dockerImage = ''
+	  
+    command = "docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print $1}"
 
   }
 
@@ -58,7 +60,7 @@ pipeline {
 	stage('Remove Existing Container') {
 
       steps{
-		sh "docker rm -f \$(docker container ls --format="{{.ID}}\t{{.Ports}}" | grep "8000" | awk '{print \$1}')"
+	      sh "docker rm -f ${command}"
       }
 
     }
