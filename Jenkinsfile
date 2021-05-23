@@ -10,20 +10,11 @@ pipeline {
 
   }
 
-  agent any
+ agent any
 
   stages {
-	      stage('Cloning Git') {
 
-      steps {
-
-        git 'https://github.com/yoginee15/Docker-Jenkins-Demo'
-
-      }
-
-    }
-
-      stage('Building image') {
+    stage('Building image') {
 
       steps{
 
@@ -89,6 +80,13 @@ pipeline {
       }
 
 	}
+	  stage('Remove dangling docker images') {
+      steps{
+        script {
+                sh "docker system prune --force --all"
+        }
+      }
+    }
 
   }
 
