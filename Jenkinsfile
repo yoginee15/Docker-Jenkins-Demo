@@ -23,7 +23,7 @@ pipeline {
 
     }
 
-    stage('Building image') {
+      stage('Building image') {
 
       steps{
 
@@ -89,13 +89,6 @@ pipeline {
       }
 
 	}
-	  stage('Remove dangling docker images') {
-      steps{
-        script {
-                sh "docker system prune --force --all"
-        }
-      }
-    }
 
   }
 
